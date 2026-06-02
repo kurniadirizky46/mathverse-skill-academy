@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MATHVERSE: SKILL ACADEMY</title>
+    <meta name="description" content="Pahami konsepnya, buka skillnya, kalahkan rivalmu. Game edukasi matematika RPG interaktif untuk SD, SMP, dan SMA." />
+    <!-- Tailwind CSS via CDN for modern game UI - stable in offline env -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+      
+      :root {
+        --navy: #0a0f2e;
+        --blue: #00f0ff;
+        --purple: #a855f7;
+        --gold: #facc15;
+        --cyan: #67e8f9;
+      }
+      
+      body {
+        font-family: 'Inter', system_ui, sans-serif;
+      }
+      
+      .font-display {
+        font-family: 'Space Grotesk', 'Inter', sans-serif;
+        font-weight: 600;
+      }
+
+      .game-bg {
+        background: linear-gradient(135deg, #0a0f2e 0%, #1a1f4e 50%, #0f172a 100%);
+        min-height: 100vh;
+      }
+
+      .glass {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .neon-blue {
+        box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+      }
+
+      .neon-purple {
+        box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+      }
+
+      .neon-gold {
+        box-shadow: 0 0 15px rgba(250, 204, 21, 0.5);
+      }
+
+      .section-title {
+        background: linear-gradient(90deg, #00f0ff, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .math-card {
+        transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                    box-shadow 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+      }
+      
+      .math-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      }
+
+      .hp-bar {
+        transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                    background-color 0.2s ease;
+      }
+
+      .damage-popup {
+        animation: damagePop 0.6s ease-out forwards;
+        position: absolute;
+        z-index: 50;
+        pointer-events: none;
+      }
+
+      @keyframes damagePop {
+        0% { transform: translateY(0) scale(0.8); opacity: 1; }
+        40% { transform: translateY(-30px) scale(1.2); }
+        100% { transform: translateY(-60px) scale(0.9); opacity: 0; }
+      }
+
+      .combo-pulse {
+        animation: comboPulse 0.4s ease-out;
+      }
+
+      @keyframes comboPulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.3); }
+        100% { transform: scale(1); }
+      }
+
+      .skill-glow {
+        animation: skillGlow 2s ease-in-out infinite;
+      }
+
+      .victory-glow {
+        animation: victoryGlow 1.5s ease-in-out;
+      }
+
+      @keyframes victoryGlow {
+        0%, 100% { box-shadow: 0 0 20px rgba(250, 204, 21, 0.6); }
+        50% { box-shadow: 0 0 40px rgba(250, 204, 21, 0.9); }
+      }
+
+      .shake {
+        animation: shakeAnim 0.4s ease-in-out;
+      }
+
+      @keyframes shakeAnim {
+        0%, 100% { transform: translateX(0); }
+        20%, 60% { transform: translateX(-6px); }
+        40%, 80% { transform: translateX(6px); }
+      }
+
+      .battle-log {
+        scrollbar-width: thin;
+        scrollbar-color: #334155 #1e2937;
+      }
+
+      .nav-active {
+        background: linear-gradient(90deg, #00f0ff20, #a855f720);
+        border-bottom: 3px solid #00f0ff;
+        color: white;
+      }
+
+      .rank-badge {
+        padding: 2px 12px;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      .math-btn {
+        transition: all 0.1s ease;
+      }
+      
+      .math-btn:active {
+        transform: scale(0.96);
+      }
+
+      .concept-step {
+        transition: all 0.3s ease;
+      }
+
+      .locked-skill {
+        filter: grayscale(0.8) brightness(0.6);
+        opacity: 0.7;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Tailwind config for game theme
+      function initTailwind() {
+        if (window.tailwind) {
+          window.tailwind.config = {
+            theme: {
+              extend: {
+                colors: {
+                  navy: '#0a0f2e',
+                  electric: '#00f0ff',
+                  accent: '#a855f7',
+                  gold: '#facc15',
+                  cyan: '#67e8f9',
+                }
+              }
+            }
+          };
+        }
+      }
+      window.onload = initTailwind;
+    </script>
+  </body>
+</html>
