@@ -1,4 +1,4 @@
-import { Boss } from '../types';
+import type { Boss } from '../types';
 
 export const bosses: Boss[] = [
   {

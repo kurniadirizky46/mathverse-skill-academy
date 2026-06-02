@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { 
+import type { 
   Player, Topic, Skill, Boss, Rival, Question, ConceptQuestion, 
   BattleState, ConceptStage, BattleResult, Achievement, DailyMission 
 } from './types';
 import { topics, getTopicById } from './data/mathContent';
 import { skills, getSkillById } from './data/skills';
-import { bosses, getBossById } from './data/bosses';
+import { getBossById } from './data/bosses';
 import { rivals } from './data/rivals';
 import { 
   calculateDamage, getSpeedBonus, getConceptBonus, 
-  simulateOpponentAction, checkBattleEnd, calculateBattleResult, applySkillDamage 
+  simulateOpponentAction, calculateBattleResult, applySkillDamage 
 } from './utils/battleEngine';
-import { calculateXP, calculateCoins, updateRank, getRankProgress } from './utils/rewardEngine';
+import { updateRank, getRankProgress } from './utils/rewardEngine';
 import { recommendNextLesson, getWeakTopics } from './utils/adaptiveEngine';
 
 // Default Player
@@ -84,7 +84,6 @@ const MathVerseApp: React.FC = () => {
   const [currentBattleQuestion, setCurrentBattleQuestion] = useState<Question | null>(null);
   const [battleQuestions, setBattleQuestions] = useState<Question[]>([]);
   const [battleIndex, setBattleIndex] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState('');
   const [confidence, setConfidence] = useState<'Safe' | 'Confident' | 'All-In'>('Confident');
   const [battleLog, setBattleLog] = useState<string[]>([]);
   const [damagePopups, setDamagePopups] = useState<{id: number, damage: number, isCrit: boolean, x: number}[]>([]);
@@ -92,7 +91,6 @@ const MathVerseApp: React.FC = () => {
   const [opponentName, setOpponentName] = useState('Raka');
   const [skillsUsedInBattle, setSkillsUsedInBattle] = useState<string[]>([]);
   const [activeSkill, setActiveSkill] = useState<Skill | null>(null);
-  const [finalClashActive, setFinalClashActive] = useState(false);
   
   // Boss State
   const [selectedBossId, setSelectedBossId] = useState<string>('boss-pecahan');
@@ -278,7 +276,7 @@ const MathVerseApp: React.FC = () => {
   };
 
   // ==================== PRACTICE MODE ====================
-  const startPractice = (topicId: string, mode: 'speed' | 'concept' = 'speed') => {
+  const startPractice = (topicId: string) => {
     const topic = getTopicById(topicId);
     if (!topic) return;
 
@@ -336,7 +334,7 @@ const MathVerseApp: React.FC = () => {
     setCombo(0);
     setEnergy(0);
     setBattleIndex(0);
-    setSelectedAnswer('');
+    // answer cleared
     setBattleLog([]);
     setDamagePopups([]);
     setBattleResult(null);
@@ -367,7 +365,6 @@ const MathVerseApp: React.FC = () => {
     if (!currentBattleQuestion || isAnswering) return;
     
     setIsAnswering(true);
-    setSelectedAnswer(answer);
     
     const isCorrect = answer === currentBattleQuestion.correctAnswer;
     const timeTaken = 8; // simulated for MVP - in real would track timer
@@ -418,7 +415,7 @@ const MathVerseApp: React.FC = () => {
       
       // Check for final clash
       if (newOppHP <= 0 || (battleIndex >= battleQuestions.length - 2 && newOppHP < 420)) {
-        triggerFinalClash(newOppHP);
+        triggerFinalClash();
         return;
       }
       
@@ -431,7 +428,7 @@ const MathVerseApp: React.FC = () => {
           setBattleIndex(nextIdx);
           setCurrentBattleQuestion(battleQuestions[nextIdx]);
           setBattleState('question');
-          setSelectedAnswer('');
+          // answer cleared
           setActiveSkill(null);
         } else {
           endBattle(true);
@@ -462,7 +459,7 @@ const MathVerseApp: React.FC = () => {
           setBattleIndex(nextIdx);
           setCurrentBattleQuestion(battleQuestions[nextIdx]);
           setBattleState('question');
-          setSelectedAnswer('');
+          // answer cleared
           setActiveSkill(null);
         } else {
           endBattle(playerHP > opponentHP);
@@ -472,8 +469,7 @@ const MathVerseApp: React.FC = () => {
     }
   };
 
-  const triggerFinalClash = (currentOppHP: number) => {
-    setFinalClashActive(true);
+  const triggerFinalClash = () => {
     setBattleState('finalClash');
     setBattleLog(prev => [...prev, '⚔️ FINAL CLASH! Soal penentu kemenangan!']);
     

@@ -1,4 +1,4 @@
-import { Topic, Question, ConceptQuestion, BossPhaseQuestion } from '../types';
+import type { Topic, Question, ConceptQuestion, BossPhaseQuestion } from '../types';
 
 // Comprehensive but focused math content for MATHVERSE
 // SD, SMP, SMA topics with concept learning + battle ready questions

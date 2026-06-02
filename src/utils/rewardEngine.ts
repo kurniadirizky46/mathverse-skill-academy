@@ -1,4 +1,4 @@
-import { Player, Rank, Achievement } from '../types';
+import type { Player, Rank, Achievement } from '../types';
 
 const RANK_THRESHOLDS: { rank: Rank; minXP: number; minWins?: number }[] = [
   { rank: 'Bronze', minXP: 0 },

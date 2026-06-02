@@ -1,4 +1,4 @@
-import { Question, Skill, BattleResult } from '../types';
+import type { Question, Skill, BattleResult } from '../types';
 
 interface BattleContext {
   playerHP: number;

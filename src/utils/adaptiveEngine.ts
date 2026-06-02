@@ -1,4 +1,4 @@
-import { Player } from '../types';
+import type { Player } from '../types';
 
 export function getWeakTopics(player: Player): string[] {
   const weak: string[] = [];

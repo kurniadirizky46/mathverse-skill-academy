@@ -29,6 +29,56 @@ npm run dev
 
 Buka browser di `http://localhost:5173`
 
+---
+
+## Cara Deploy ke Online (Vercel) - Paling Mudah
+
+Game ini **sudah siap deploy** ke Vercel, Netlify, atau platform static hosting lainnya.
+
+### Langkah Deploy ke Vercel (Gratis & Cepat)
+
+1. **Buat akun Vercel**
+   - Buka: [https://vercel.com](https://vercel.com)
+   - Login menggunakan **GitHub**
+
+2. **Upload Project ke GitHub**
+   - Buat repository baru di GitHub dengan nama `mathverse-skill-academy`
+   - Upload semua file dari folder ini ke repository tersebut
+
+3. **Deploy ke Vercel**
+   - Di Vercel, klik **"Add New Project"**
+   - Pilih repository GitHub kamu (`mathverse-skill-academy`)
+   - Vercel akan otomatis mendeteksi Vite React
+   - Klik **Deploy**
+
+4. Selesai!  
+   Vercel akan memberikan URL gratis seperti:
+   - `https://mathverse-skill-academy.vercel.app`
+
+### Catatan Penting:
+- Game ini **static** (tidak butuh backend)
+- Semua progress disimpan di browser (LocalStorage)
+- Tailwind menggunakan CDN (ringan)
+- Cocok di-deploy di Vercel / Netlify / GitHub Pages
+
+---
+
+## Struktur Folder
+
+```
+C:\game_grok\
+├── src/
+│   ├── App.tsx
+│   ├── data/
+│   ├── utils/
+│   └── types/
+├── public/
+├── vercel.json          ← Sudah disediakan
+├── package.json
+├── vite.config.ts
+└── index.html
+```
+
 ## Struktur Proyek
 
 ```

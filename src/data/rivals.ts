@@ -1,4 +1,4 @@
-import { Rival } from '../types';
+import type { Rival } from '../types';
 
 export const rivals: Rival[] = [
   {
